@@ -89,6 +89,12 @@ describe('utils validateAndFormatMsgid', () => {
         expect(validateAndFormatMsgid(input, ['a', 'b'])).to.eql(expected);
     });
 
+    it('should support [] notation', () => {
+        const input = '${ a[value] } banana ${ b[value] }';
+        const expected = '`${ a[value] } banana ${ b[value] }`';
+        expect(validateAndFormatMsgid(input, ['a[value]', 'b[value]'])).to.eql(expected);
+    });
+
     it('should throw if not all expressions exist in translated strings', () => {
         const input = '${ count } apples (translated)';
         const func = () => validateAndFormatMsgid(input, ['appleCount']);
